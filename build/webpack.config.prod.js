@@ -1,13 +1,12 @@
-
-
-
 const merge = require('webpack-merge')
 const config = require('./webpack.config.common.js')
 
-module.exports =  merge(config, {
+module.exports = merge(config, {
     mode: 'production',
+    devtool: 'none',
     output: {
-        filename: '[name].[contenthash].js',
+        filename: '[name].[contenthash:8].js',
+        chunkFilename: 'js/[name].[contenthash:8].chunk.js'
     },
     stats: {
         // 资源信息

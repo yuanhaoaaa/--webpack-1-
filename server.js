@@ -6,7 +6,10 @@ const app = express()
 app.use(express.static(path.resolve(__dirname, './dist')))
 
 app.get('*', (req, res) => {
-    let html = fs.readFileSync(path.resolve(__dirname, './dist/template.html'), 'utf-8')
+    let html = fs.readFileSync(
+        path.resolve(__dirname, './dist/template.html'),
+        'utf-8'
+    )
     res.setHeader('Content-Type', 'text/html')
     res.send(html)
 })

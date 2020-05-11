@@ -5,10 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 将不需要打包的资源 放入到指定目录
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 // 每次打包前，清除dist目录
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const resolve = pathname => path.resolve(__dirname, pathname)
 // vue-loader 需要引入
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
     entry: {
@@ -47,10 +48,10 @@ module.exports = {
                         loader: 'url-loader',
                         options: {
                             name: () => {
-                                if (!isDev) {
-                                    return '[name].[ext]';
+                                if (!isProd) {
+                                    return '[name].[ext]'
                                 }
-                                return '[name]_[hash:8].[ext]';
+                                return '[name]_[hash:8].[ext]'
                             },
                             outputPath: 'images/',
                             // 小于10k打包为base64
@@ -58,7 +59,7 @@ module.exports = {
                         }
                     }
                 ]
-            },
+            }
         ]
     },
     plugins: [
@@ -66,7 +67,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'test',
             template: resolve('../public/template.html'),
-            filename: 'template.html'
+            filename: isProd ? 'template.html' : 'index.html'
         }),
         new CopyWebpackPlugin([
             {

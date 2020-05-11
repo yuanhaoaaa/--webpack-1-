@@ -1,5 +1,6 @@
 <template>
   <div class="test-wrapper">
+   // 指定路由试图
     <router-view></router-view>
   </div>
 </template>
@@ -11,7 +12,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.test-wrapper {
-  color: red;
-}
+
 </style>
