@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<!--vue-ssr-outlet-->
+<script>
+
+    let arr = {
+        value: 1,
+        left: {
+            value: 2,
+            left: {
+                value: 3,
+                left: {
+                    value: 4
+                },
+                right: {
+                    value: 10,
+                }
+            },
+            right: {
+                value: 9,
+            }
+        },
+        right: {
+            value: 5,
+            left: {
+                value: 6,
+                left: {
+                    value: 7
+                }
+            },
+            right: {
+                value: 8
+            }
+            
+        }
+    }
+
+    function preorderTraversal () {
+        let result = []
+
+        var preOrderTraverseNode  = node => {
+            if(node) {
+                debugger
+                result.push(node.value)
+                preOrderTraverseNode(node.left)
+                preOrderTraverseNode(node.right)
+            }
+        }
+        preOrderTraverseNode(arr)
+        return result
+    }
+
+    console.log(preorderTraversal())
+
+</script>
+</body>
+</html>

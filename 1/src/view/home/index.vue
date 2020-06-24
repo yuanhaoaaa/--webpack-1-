@@ -24,8 +24,6 @@ import {mapGetters} from 'vuex'
         },
         methods: {
             handleAdd () {
-                console.log(this)
-                console.log(this.$store)
                 this.$store.commit('setCount', 3)
             }
         },
