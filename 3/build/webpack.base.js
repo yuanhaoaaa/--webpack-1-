@@ -5,7 +5,8 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 // 清除dist文件
 let { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
+// html
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 let isProd = process.env.NODE_ENV === 'production';
 let findToFilePath = (pathname) => {
     return path.resolve(__dirname, pathname);
@@ -50,7 +51,7 @@ module.exports = {
                     {
                         loader: 'url-loader',
                         options: {
-                            limit: 90000,
+                            limit: 111190000,
                             name: () => {
                                 if (!isProd) {
                                     return '[name].[ext]';
@@ -58,7 +59,7 @@ module.exports = {
                                 return '[name]_[hash:8].[ext]';
                             },
                             outputPath: 'images/',
-                            publicPath: '/blog/images',
+                            publicPath: '/ssr/images',
                         },
                     },
                 ],
@@ -80,14 +81,25 @@ module.exports = {
         entrypoints: false,
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            template:  findToFilePath('../public/template.html'),
+            title: '测试',
+            filename: 'templateProd.html',
+            xhtml: true
+        }),
         new VueLoaderPlugin(),
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin([
             {
                 from: path.resolve(__dirname, findToFilePath('../public')),
-                to: findToFilePath('../dist/client/blog/public'),
+                to: findToFilePath('../dist/client/ssr/public'),
                 ignore: ['.*'],
             },
-        ])
+        ]),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(
+                process.env.NODE_ENV || 'development'
+            ),
+        }),
     ],
 };
